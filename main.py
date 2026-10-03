@@ -1,6 +1,6 @@
 
 #ENCRYPTION CODE
-message = "Hello World Hello World Hello World 2026"
+message = "Hello World Hello World Hello World zoo 2026"
 #To hold the new encrypted message
 encrypted_message = ''
 
@@ -26,9 +26,14 @@ for character in message:
                 #adding the shift key to the number variable
                 next_number = number + 3
                 #converting back into apha/text characters
+
+                '''
+                Check for to ensure that the character is lowercase and greater than 122 (122=z this is the highest ASCII code for the lowercase alphabet). If it true the we execute the if block of code.
+                The next_number variable is then reassigned to itself and subtracted from 26 since the a-2 aplphabet stops at 26.
+                '''
+                if character.islower() and next_number > 122:
+                     next_number -=  26
                 new_char = chr(next_number)
-                #print(new_char)
-                
                 encrypted_message += new_char
                
         else:  
