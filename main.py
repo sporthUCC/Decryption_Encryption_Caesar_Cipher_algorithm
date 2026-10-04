@@ -1,17 +1,28 @@
+#=========================================================Variables=========================================================================================
 
-#ENCRYPTION CODE
-message = "Hello World Hello World Hello World zoo 2026"
-#To hold the new encrypted message
+#The user message will be entered here
+message = input("Enter Message:    ").lower()
+
+#The user will enter the shify key value here
+key = int(input("Enter key value of any length (Please enter only numeric values):   "))
+
+
+#Remainder will be shift key vlaue
+shift_key = key % 26
+
+
+
+#Initialize encypted message with empty string
 encrypted_message = ''
 
 #To hold the decrypted message
 decrypted_message = ''
 
-#Tun A into its computer numbernumber = ord(letter)
-
+#Turn A into its computer number ord(letter)
+#===============================================================Encryption Logic===============================================================================
 #Use for loop go over the individual words from the message variable
 for character in message:
-        print(character)
+        #print(character)
         #if character == ' ':
             #encrypted_message += " "
         #print(character)
@@ -22,7 +33,7 @@ for character in message:
                 #print(number)
 
                 #adding the shift key to the ASCII number
-                next_number = number + 3
+                next_number = number + shift_key
                 '''
                 Check for to ensure that the character is lowercase and greater than 122 (122=z this is the highest ASCII code for the lowercase alphabet). If it true the we execute the if block of code.
                 The next_number variable is then reassigned to itself and subtracted from 26 since the a-z aplphabet stops at 26.
@@ -39,18 +50,22 @@ for character in message:
             '''      
             encrypted_message =  encrypted_message+character
 
-print(encrypted_message)
+print(f"Encrypted Message: {encrypted_message}")
 
 
+#===============================================================Decryption Logic===============================================================================
 for  character in encrypted_message:
     if character.isalpha():
         #converting the character to number/s for calculation
         character_number = ord(character)
+        #print( character_number)
 
         #Subtracting based on the shift key value from the charcter_number
-        next_number = character_number -3
+        next_number = character_number - shift_key
+
+        #If the shift goes beyond 97 it wraps it around
         if character.islower() and next_number < 97:
-            next_number +=  26
+            next_number += 26
         #converting back to letters
         new_char = chr(next_number)
         decrypted_message += new_char
@@ -61,7 +76,7 @@ for  character in encrypted_message:
         '''
         decrypted_message +=character
 
-print(decrypted_message)
+print(f"Decrypted Message: {decrypted_message}")
         
 
 
