@@ -105,9 +105,26 @@ while True:
     #====================================View History===============================================================  
     elif selected_option == 4:
          print("History")
+    if len(history) == 0:
+        print("No history has being recorded here")
+        print(Print Encrypt or decrypt a message first.\n")
+    else:
+        #Print the table headings
+        print(f"{'No.':<5}{'Operation':<10}{'Shift':<7}{'Original':<25}{'Result'}")
+        print("-" * 80)
+
+        #Loop through each saved record and print it as a row
+        for record in history:
+            print(f"{record['number']:<5}{record['operation']:<10}{record['shift']:<7}{record['original']:<25}{record['result']}")
+            print()
 
     elif selected_option == 5:
+        #ask the user if they want to exit the program
+        confirm_exit = input("Are you sure you want to exit? (y/n): ").lower()
+        if confirm_exit == 'y':
          print("\nExiting Program. Goodbye!!!")
          break
+    elif confirm =='n'
+         print("\nReturning to the main menu...")
     else:
          print("\nInvalid option. Please select between 1-5")
