@@ -10,8 +10,6 @@ key = int(input("Enter key value of any length (Please enter only numeric values
 #Remainder will be shift key vlaue
 shift_key = key % 26
 
-
-
 #Initialize encypted message with empty string
 encrypted_message = ''
 
@@ -79,5 +77,14 @@ for  character in encrypted_message:
 print(f"Decrypted Message: {decrypted_message}")
         
 
+#Intitializing empty object store the attempts
+brute_force_attempts = {}
 
+#using  the for loop to go over the the possible attempts from 1-10
+for shift_key in range (1,26): 
+    #stores the different brute force attempts
+    decrypted_attempt = ""
+     #print(shift_key)
+    for character in encrypted_message:
+         print(character)
 
