@@ -5,9 +5,6 @@ key = int(input("Enter key value of any length (Please enter only numeric values
 #Remainder will be shift key vlaue
 shift_key = key % 26
 #Stores the possible decrypted messages from the attack
-brute_force_attempts = {}
-
-
 
 while True:
     print("MENU OPTIONS")
@@ -79,6 +76,7 @@ while True:
                 
     #====================================Brute Force attempt/s===============================================================
     elif selected_option == 3:
+        brute_force_attempts = {}
         #using  the for loop to go over the the possible attempts from 1-10
         for shift_key in range (1,26): 
             #stores the different brute force attempts
