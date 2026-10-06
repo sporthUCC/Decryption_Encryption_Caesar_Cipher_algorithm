@@ -1,23 +1,51 @@
 #The user message will be entered here
-message = input("Enter Message:    ").lower()
-#The user will enter the shift key value here which encrypts the message
-key = int(input("Enter key value of any length (Please enter only numeric values):   "))
+message = input("Enter Message:  ").lower()
+#Initialize encypted message with empty string
+encrypted_message = ''
+#To hold the decrypted message
+decrypted_message = ''
+#Initialize brute forc attacks with empty string; this is use to store the value later on in the program
+brute_force_attempts = {}
+
+#===============================================ERROR HANDLING FOR INPUT VALUES==============================
+#Error handling for incorrect data type
+while True:
+     #Executed the user 
+     try:
+        #The user will enter the shift key value here which encrypts the message)
+        key = int(input("\nEnter key value of any length (Please enter only numeric values): "))
+        break
+     #The will only execute if the value that was entered was a non numeric value
+     except ValueError:
+          print("\n ERROR:Only numeric values are accepted. Please try again")
+#===============================================ERROR HANDLING FOR INPUT VALUES==============================
+
 #Remainder will be shift key vlaue
 shift_key = key % 26
-#Stores the possible decrypted messages from the attack
 
+#===============================================MAIN LOOP===================================================
 while True:
-    print("MENU OPTIONS")
-    print("Please enter the following options to perform the desired action:")
+    print("=========================MENU OPTIONS============================")
+    print("Please enter a the following options to perform the desired action:")
     print("1. Encrypt a message\n2. Decrypt a message\n3. Brute Force Attack\n4. View History\n5. Exit")
-    
-    # The user will enter the option they want to perform here
-    selected_option = int(input("Enter your option: "))
-
-#===============================================================Encryption Logic===============================================================================
+    print("==================================================================")
+    #===============================================INNER LOOP FOR ERROR HANDLING==============================================
+    while True: 
+        try:
+            # The user will enter the option they want to perform here
+            selected_option = int(input("\nEnter your option: ").strip())
+            #Checks to see if the input is between 1 and 5, if true it exits the loop
+            if selected_option >= 1 and selected_option<=5:
+                 break  
+            else:
+                 #catched number that are less than 1 or greater than 5
+                 print("\nError: Invalid selected option. Please select a numeric value from the menu (1-5)")
+             
+        except ValueError: 
+             print("\nERROR: Invalid input. Letter and/or Symbols are not allowed. Please enter numeric value from the menu")
+            
+    #===============================================================Encryption Logic===============================================================================
     if selected_option == 1:
-        #Initialize encypted message with empty string
-        encrypted_message = ''
     #Use for loop go over the individual words from the message variable
         for character in message:
                 #print(character)
@@ -46,10 +74,8 @@ while True:
 
         print(f"Encrypted Message: {encrypted_message}")
 
-    #===============================================================Decryption Logic===============================================================================
+    #===============================================================DECRYPTION LOGIC===============================================================================
     elif selected_option == 2:
-        #To hold the decrypted message
-        decrypted_message = ''
         for  character in encrypted_message:
             if character.isalpha():
                 #converting the character to number/s for calculation
@@ -74,11 +100,10 @@ while True:
 
         print(f"Decrypted Message: {decrypted_message}")
                 
-    #====================================Brute Force attempt/s===============================================================
+    #====================================BRUTE FORCE LOGIC===============================================================
     elif selected_option == 3:
-        brute_force_attempts = {}
         #using  the for loop to go over the the possible attempts from 1-10
-        for shift_key in range (1,26): 
+        for attempt_key in range (1,26): 
             #stores the different brute force attempts
             decrypted_attempt = ""
             #print(shift_key)
@@ -99,15 +124,13 @@ while True:
         # Display all attempts
         print( "BRUTE FORCE ATTACK ")
 
-        for shift, message in brute_force_attempts.items():
-                print(f"Shift {shift:2}: {message}")
+        for rotation, decrypted_message_attempt in brute_force_attempts.items():
+                print(f"Key Rotation {rotation:2}: {decrypted_message_attempt}")
 
-    #====================================View History===============================================================  
+    #====================================HISTORY===============================================================  
     elif selected_option == 4:
          print("History")
 
     elif selected_option == 5:
          print("\nExiting Program. Goodbye!!!")
          break
-    else:
-         print("\nInvalid option. Please select between 1-5")
