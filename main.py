@@ -103,7 +103,7 @@ while True:
     #====================================BRUTE FORCE LOGIC===============================================================
     elif selected_option == 3:
         #using  the for loop to go over the the possible attempts from 1-10
-        for attempt_key in range (1,26): 
+        for attempt_key in range (1,11): 
             #stores the different brute force attempts
             decrypted_attempt = ""
             #print(shift_key)
