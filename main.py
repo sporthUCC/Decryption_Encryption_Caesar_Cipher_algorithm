@@ -86,5 +86,25 @@ for shift_key in range (1,26):
     decrypted_attempt = ""
      #print(shift_key)
     for character in encrypted_message:
-         print(character)
+         if character.isalpha():
+
+            character_number = ord(character)
+            next_number = character_number - shift_key
+
+# wrap around alphabet
+if character.islower() and next_number < 97:
+next_number += 26
+
+decrypted_attempt += chr(next_number)
+
+else:
+decrypted_attempt += character
+
+brute_force_attempts[shift_key] = decrypted_attempt
+
+# Display all attempts
+print( "BRUTE FORCE ATTACK ")
+
+for shift, message in brute_force_attempts.items():
+print(f"Shift {shift:2}: {message}")
 
