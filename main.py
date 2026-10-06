@@ -102,7 +102,6 @@ for shift_key in range (1,26):
 
     # Display all attempts
     print( "BRUTE FORCE ATTACK ")
-
-    for shift, message in brute_force_attempts.items():
+for shift, message in brute_force_attempts.items():
             print(f"Shift {shift:2}: {message}")
 
