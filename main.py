@@ -170,49 +170,71 @@ while True:
     
     #================================================================BRUTE FORCE LOGIC STARTS============================================================================
     elif selected_option == 3:
+        while True:
+            intercepted_message = input("\nEnter Ciphertext Message to Brute Force: ")
+            if intercepted_message.strip() == "":
+                print("\nError: Cannot be empty. Please enter text: ")
+            else:
+                break
+        #Rest the dictionary to clear out previous attack from the memmory    
+        brute_force_attempts = {}
         #using  the for loop to go over the the possible attempts from 1-10
         for attempt_key in range (1,11): 
             #stores the different brute force attempts
             decrypted_attempt = ""
-            #print(shift_key)
-            for character in encrypted_message:
-                if character.isalpha():
-                    character_number = ord(character)
-                    next_number = character_number - shift_key
-                #wrap around alphabet
-                    if character.islower() and next_number < 97:
+            #print(decrypted_attempt)
+            
+            for character in intercepted_message:
+                if character.isupper():
+                    number = ord(character)
+                    next_number = number - attempt_key
+                    
+                    if next_number < 65:
                         next_number += 26
-                    decrypted_attempt += chr(next_number)
-
+                    new_char = chr(next_number)
+                    decrypted_attempt +=new_char
+                #Handles the lower case values 
+                elif character.islower():
+                    character_number = ord(character)
+                    next_number = character_number - attempt_key
+                    
+                    #wrapping alphabet around
+                    if next_number < 97:
+                        next_number +=26
+                    new_char = chr(next_number)
+                    decrypted_attempt +=new_char
                 else:
-                    decrypted_attempt += character
-
-            brute_force_attempts[shift_key] = decrypted_attempt
-
+                    decrypted_attempt +=character
+                    
+            brute_force_attempts[attempt_key] = decrypted_attempt
+            
         # Display all attempts
-        print( "BRUTE FORCE ATTACK ")
+        print( "=============================BRUTE FORCE ATTACK (Shift 1-10)===================================== ")
 
         for rotation, decrypted_message_attempt in brute_force_attempts.items():
                 print(f"Key Rotation {rotation:2}: {decrypted_message_attempt}")
+        #Why the correct message is easy to put
+        print("\n==========================================ANALYSIS================================================")
+        print("\nWhy the correct message is easy to spot Analysis:")
+        print("As human reader, you will almost immediately recognize real character and patterns.You will only see exactly ONE row that make sense in plain English.")
+        print("Depending on what the original shift key value was, that specific rotation line is where the decrypted message will would be located at.")
+        print("\n===================================================================================================")
+        input("\nPress Enter to return to menu....")
+                
+            
     #================================================================BRUTE FORCE LOGIC ENDS============================================================================
     
     
     #====================================================================HISTORY START================================================================================= 
     elif selected_option == 4:
-    
-        print("History")
-        '''if len(history) == 0:
-            print("No history has being recorded here")
-            print(Print Encrypt or decrypt a message first.\n")
+        print("\n==========================================SESSION HISTORY================================================")
+        
+        if(len(session_history)) == 0:
+            print("No History has been recorded yet.")
+            print('Please Peform action: Select 1 for Encryptpion or Select 2 for Decryption')  
         else:
-            #Print the table headings
-            print(f"{'No.':<5}{'Operation':<10}{'Shift':<7}{'Original':<25}{'Result'}")
-            print("-" * 80)
-
-            #Loop through each saved record and print it as a row
-            for record in history:
-                print(f"{record['number']:<5}{record['operation']:<10}{record['shift']:<7}{record['original']:<25}{record['result']}")
-                print()'''
+            print(f"{'No.':<5} | {'Operation':<10} | {'Shift':<6} | {'Original Message':<25} | {'Resulting Output'}")
+       
         #====================================================================HISTORY ENDS================================================================================= 
 
     elif selected_option == 5:
