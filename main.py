@@ -1,5 +1,5 @@
 """
-Cours: ITT212 Python Programming
+Course: ITT212 Python Programming
 Assignment: Caesar Cipher Encryption and Decryption System
 Academic Year: 2026 - 2027
 Lecturer: Mr. Jonathan Johnson
@@ -13,12 +13,12 @@ while True:
     print("-"* 200)
     print("Please enter a the following options to perform the desired action:")
     print("1. Encrypt a message\n2. Decrypt a message\n3. Brute Force Attack\n4. View History\n5. Exit\n")
-    print("==================================================================")
+    print("-"* 200)
     #===============================================INNER LOOP FOR ERROR HANDLING==============================================
-    #This keeps prompting the user until they enter numeric text value
+    #This keeps prompting the user until they enter a numeric text value
     while True: 
         try:
-            # The user will enter the option they want to perform here
+            # 
             selected_option = int(input("\nEnter your option: ").strip())
             #Checks to see if the input is between 1 and 5, if true it exits the loop
             if selected_option >= 1 and selected_option<=5:
@@ -33,7 +33,7 @@ while True:
     #===============================================================Cipher Logic Start===============================================================================
     if selected_option in [1,2]:
         
-        #Determine the name of of the action / opertion the user want to pwerform
+        #Determine the name process the user would like to perform whether that is to encrypt or decrypt
         operation = "Encryption" if selected_option == 1 else "Decryption"
         
         while True:
@@ -54,15 +54,14 @@ while True:
             #The will only execute if the value that was entered was a non numeric value
             except ValueError:
                 print("\n ERROR:Only numeric values are accepted. Please try again")
-        #calculate shift dynamically
-        
+        #Reduces large or negative shift keys to an equivalent shift within the alphabet
         shift_key = key % 26
         #this line converts the shift into a negative number for decryption and keep it as a positive number foe encryption
         final_shift = shift_key if selected_option == 1 else -shift_key
         #use to store decrypted or encrypted message
         cipher_text = ""
     
-    #Use "for" loop to go over the individual words from the message variable
+        # Use a "for" loop to go over the individual words from the message variable
         for character in message:
             #print(character)
             #This checks for alphabetic character from A-Z / a-z; this return a True or False value
@@ -99,10 +98,8 @@ while True:
                         next_number +=26
                     new_char = chr(next_number)
                     cipher_text += new_char      
-            else:  
-                    '''
-                    This is for when we need to put the the non letter character back to the orignal position
-                    '''      
+            else:     
+                    #This is for when we need to put the the non letter character back in the orignal position
                     cipher_text =  cipher_text+character
 
         #showing the enrypted or decrypted message
@@ -138,7 +135,6 @@ while True:
             #stores the different brute force attempts
             decrypted_attempt = ""
             #print(decrypted_attempt)
-            
             for character in intercepted_message:
                 if character.isupper():
                     number = ord(character)
@@ -178,7 +174,7 @@ while True:
         As human reader, you will almost immediately recognize real character and patterns.You will only see exactly ONE row that make sense in plain English.
         Depending on what the original shift key value was, that specific rotation line is where the decrypted message will would be located at.Furthermore, 
         a key limitation of the Caesar Cipher is that all possible decrypted messages retain the exact same length, making pattern analysis much 
-        easier compared to advanced modern encryption methods for e.g AES.")
+        easier compared to advanced modern encryption methods for e.g AES.
         """)
         
         print("\n===========================================================================================================================================")
@@ -191,16 +187,16 @@ while True:
     #====================================================================HISTORY START================================================================================= 
     elif selected_option == 4:
         print("="*200)
-        #Aligning session history in the missle
+        #Aligning session history in the middle
         print("SESSION HISTORY".center(200))
         print("="*200)
         
-        #check to see if the session history list is empty. If it is empty it return a message, if is not empty then it show the history of the session
+        #Check to see if the session history list is empty. If it is empty, it returns a message; if it is not empty, then it shows the history of the session
         if session_history == []:
             print("[!]No History has been recorded yet.")
             print('Please Peform an action: Select 1 for Encryptpion or Select 2 for Decryption')  
         else:
-            #Formatting Header using string formatter
+            #Formatting the header using a string formatter
             print(f"{'No.':<5}|{'Operation':<10}|{'Shift':<6}|{'Original Message':<25}|{'Resulting Output'}")
             #printing table divider using - * 90
             print("="*200)
@@ -208,15 +204,31 @@ while True:
             for index, record in enumerate(session_history, start=1):
                 #print(index, record)
                 history_log_result = record["Encrypted Message"] if record["Operation"] == "Encryption" else record["Decrypted Message"]
-                #shows the the history result based on the action we carried out, whether that's decryption or encryption
+                #shows the history result based on the action we carried out, whether that's decryption or encryption
                 print(f"{index:<5}|{record['Operation']:<10}|{record['Encrypted Key Value']:<6}|{record['Original Message']:<25}|{history_log_result} ")
                 print("="*200)
-                
+            #History Management feature
+            print("\n[Options: Type 'CLEAR to wipe out all logs, or press Enter to keep them ")
+            admin_choice = input("Your Choice:  ").upper().strip()
+            
+            if admin_choice == "CLEAR":
+                session_history.clear()
+                print("\n[+] Session history cleared sucessfully!")
+                print("="*200)
         input("\nPress Enter to return to menu....")
                 
         #====================================================================HISTORY ENDS================================================================================= 
 
-    elif selected_option == 5:
-            print("\nSession Completed. Goodbye!!!")
-            break
+    elif selected_option == 5: 
+            confirmation = input("Would you like to end your session? Y(ends the session) or N(back to the menu): ").upper().strip()
+            
+            if confirmation == 'Y':
+                print("\nSession Completed. Goodbye!!!")
+                break
+            elif confirmation == 'N':
+                input("\nPress Enter to return to menu....")
+            else:
+                print("\nError: Invalid input. Please enter Y or N")
+            
+        
  
