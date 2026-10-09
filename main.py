@@ -42,20 +42,25 @@ while True:
             if message.strip() == "":
                 print('\nError: Cannot be empty. Please enter text')
             else:
-                #exit loop once True
+                #exit loop once 
                 break        
         #Prompts the user to enter a correct input value 
         while True:
             #Executed the user 
             try:
                 #The user will enter the shift key value here which encrypts the message)
-                key = int(input("\nEnter key value of any length (Please enter only numeric values): "))
+                shift_key = int(input("\nEnter key shift value of any length (Please enter only numeric values): "))
+                
+                if 1<= shift_key <=25:
+                    break
+                else:
+                    print("\nERROR: out of range! Key values must be between 1-5")
                 break
             #The will only execute if the value that was entered was a non numeric value
             except ValueError:
                 print("\n ERROR:Only numeric values are accepted. Please try again")
         #Reduces large or negative shift keys to an equivalent shift within the alphabet
-        shift_key = key % 26
+        #shift_key = key % 26
         #this line converts the shift into a negative number for decryption and keep it as a positive number foe encryption
         final_shift = shift_key if selected_option == 1 else -shift_key
         #use to store decrypted or encrypted message
