@@ -5,6 +5,8 @@ Academic Year: 2026 - 2027
 Lecturer: Mr. Jonathan Johnson
 """
 
+
+#Empty list to intitialize session histoy for later usage
 session_history = []
 #===============================================MAIN LOOP STARTS===================================================
 while True:
@@ -49,13 +51,12 @@ while True:
             #Executed the user 
             try:
                 #The user will enter the shift key value here which encrypts the message)
-                shift_key = int(input("\nEnter key shift value of any length (Please enter only numeric values): "))
-                
+                shift_key = int(input("\nEnter key shift value between (1-25): "))
+                #strict validation, this ensure that user only selects shift key values only between 1 to 25
                 if 1<= shift_key <=25:
                     break
                 else:
-                    print("\nERROR: out of range! Key values must be between 1-5")
-                break
+                    print("\nERROR: out of range! Vfalues must be between (1-25)")
             #The will only execute if the value that was entered was a non numeric value
             except ValueError:
                 print("\n ERROR:Only numeric values are accepted. Please try again")
@@ -96,20 +97,29 @@ while True:
                 elif character.islower():
                     #converts from letter to number
                     number = ord(character)
+                    #this is used to the next following number in the ASCII computer table
                     next_number = number + final_shift
+                    #check to if next_number variable is actually greater than 122 which is the equivalent to z, and that is where the alphabet stops
                     if next_number > 122:
+                        #once the next_number is greater than 122 for e.g 125, it wrapped around, so it be 125 - 26, which would be 99. The ASCII equaivalent to 99 is lowercase c.
                         next_number -=26
                     elif next_number < 97:
                         next_number +=26
+                    #chr () built in python method/function is what converts the ASCII number back to a letter
                     new_char = chr(next_number)
                     cipher_text += new_char      
             else:     
                     #This is for when we need to put the the non letter character back in the orignal position
                     cipher_text =  cipher_text+character
 
-        #showing the enrypted or decrypted message
+        #showing the enrypted or decrypted message; this shows a dynamic answer depending on the answer that was selected
         print(f"\n{operation}ed  Result: {cipher_text}")
         
+        '''
+            the result_key is the variable that determines what text will be shown depending on the user selection in the menu options. 
+            If the user selected option one (1), then the result_key variable execute the 
+           condition this is true which is the "Encrypted Message"  otherwise it "Decrytion message" is executed if it false.
+         '''
         result_key = "Encrypted Message" if selected_option ==1  else "Decrypted Message"
         
         #Dynamically keep a track of the of the history key name so History in option 4 can read it correctly
@@ -139,7 +149,8 @@ while True:
         for attempt_key in range (1,11): 
             #stores the different brute force attempts
             decrypted_attempt = ""
-            #print(decrypted_attempt)
+            print(decrypted_attempt)
+            #print(decrypted_attempt)e
             for character in intercepted_message:
                 if character.isupper():
                     number = ord(character)
@@ -198,7 +209,7 @@ while True:
         
         #Check to see if the session history list is empty. If it is empty, it returns a message; if it is not empty, then it shows the history of the session
         if session_history == []:
-            print("[!]No History has been recorded yet.")
+            print("No History has been recorded yet.")
             print('Please Peform an action: Select 1 for Encryptpion or Select 2 for Decryption')  
         else:
             #Formatting the header using a string formatter
@@ -213,20 +224,21 @@ while True:
                 print(f"{index:<5}|{record['Operation']:<10}|{record['Encrypted Key Value']:<6}|{record['Original Message']:<25}|{history_log_result} ")
                 print("="*200)
             #History Management feature
-            print("\n[Options: Type 'CLEAR to wipe out all logs, or press Enter to keep them ")
+            print("\n Type 'CLEAR to wipe out all logs, or press Enter to keep them ")
             admin_choice = input("Your Choice:  ").upper().strip()
             
             if admin_choice == "CLEAR":
                 session_history.clear()
-                print("\n[+] Session history cleared sucessfully!")
+                print("\nSession history cleared sucessfully!")
                 print("="*200)
         input("\nPress Enter to return to menu....")
                 
         #====================================================================HISTORY ENDS================================================================================= 
 
     elif selected_option == 5: 
+            #This is a validation check to ensure that 
             confirmation = input("Would you like to end your session? Y(ends the session) or N(back to the menu): ").upper().strip()
-            
+            #This is a validation check to ensure that user safley exits the program. 
             if confirmation == 'Y':
                 print("\nSession Completed. Goodbye!!!")
                 break
@@ -234,6 +246,7 @@ while True:
                 input("\nPress Enter to return to menu....")
             else:
                 print("\nError: Invalid input. Please enter Y or N")
+  
             
         
- 
+print('I CERTIFY THAT I HAVE NOT GIVEN OR RECEIVED ANY UNAUTHORIZED ASSISTANCE ON THIS ASSIGNMENT')
